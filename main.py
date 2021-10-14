@@ -36,9 +36,12 @@ money = 0
 
 
 def print_report(m):
-    for keys in resources:
-        print(f"{keys.title()}: {resources[keys]}ml")
+    print(f"Water: {resources['water']}ml")
+    print(f"Milk: {resources['milk']}ml")
+    print(f"Coffee: {resources['coffee']}g")
     print(f"Money: ${m}")
+
+
 
 
 def check_ingredient(ch):
@@ -76,10 +79,10 @@ def check_ingredient(ch):
 
 def ask_money():
     collect_m = {
-        "quarters":0,
-        "dimes":0,
-        "nickles":0,
-        "pennies":0
+        "quarters": 0,
+        "dimes": 0,
+        "nickles": 0,
+        "pennies": 0
     }
     print("Please insert coins")
     collect_m["quarters"] = int(input("How many quarters?: "))
@@ -87,7 +90,9 @@ def ask_money():
     collect_m["nickles"] = int(input("How many nickles?: "))
     collect_m["pennies"] = int(input("How many pennies?: "))
 
-    return collect_m["quarters"] * 0.25 + collect_m["dimes"] * .10 + collect_m["nickles"] * 0.05 + collect_m["pennies"] * 0.01
+    return collect_m["quarters"] * 0.25 + collect_m["dimes"] * .10 + collect_m["nickles"] * 0.05 + collect_m[
+        "pennies"] * 0.01
+
 
 def reduce_inventory(redCh):
     if redCh == "e":
@@ -105,7 +110,9 @@ def reduce_inventory(redCh):
         resources["coffee"] -= MENU["cappuccino"]["ingredients"]["coffee"]
         resources["milk"] -= MENU["cappuccino"]["ingredients"]["milk"]
 
-while True:
+
+flag = True
+while flag:
     user_ch = input("What would you like? (espresso/latte/cappuccino): ").lower()
     if user_ch == "report":
         print_report(money)
@@ -149,6 +156,8 @@ while True:
                 reduce_inventory("c")
         else:
             print(f"Sorry there is not enough {check_ingredient('c')}")
+    elif user_ch == "off":
+        flag = False
     else:
         print("Wrong Choice")
 
